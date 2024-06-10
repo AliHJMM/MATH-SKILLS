@@ -36,4 +36,13 @@ func main() {
 	average = math.Round(total / float64(len(array)))
 	fmt.Println(average)
 
+	fmt.Print("Median: ")
+	if len(array)%2 == 0 {
+		median = int(math.Ceil(float64((array[(len(array)/2)-1])+(array[(len(array)/2)])) / 2))
+	} else {
+		median = int(math.Ceil(float64(array[(len(array) / 2)])))
+	}
+
+	fmt.Println(median)
+
 }
