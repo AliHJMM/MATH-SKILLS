@@ -44,5 +44,11 @@ func main() {
 	}
 
 	fmt.Println(median)
+	fmt.Print("Variance: ")
+	for i := 0; i < len(array); i++{
+		standardDeviation += math.Pow((float64(array[i])- average), 2)
+	}
+	variance := math.Round(standardDeviation / float64(len(array)))
+	fmt.Println(int(variance))
 
 }
