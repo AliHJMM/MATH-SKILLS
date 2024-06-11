@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 	file := bufio.NewScanner(readingFile)
 
 	for file.Scan() {
-		line := file.Text()
+		line := strings.TrimSpace(file.Text())
 		if line == "" {
 			continue // Skip empty lines
 		}
@@ -39,6 +40,11 @@ func main() {
 		}
 		array = append(array, parsedValue)
 		total += float64(parsedValue)
+	}
+
+	if len(array) == 0 {
+		log.Println("No valid numbers to process.")
+		return
 	}
 
 	sort.Ints(array)
@@ -57,15 +63,15 @@ func main() {
 	fmt.Println(median)
 
 	fmt.Print("Variance: ")
-	standardDeviation := 0.0
-	for i := 0; i < len(array); i++ {
-		standardDeviation += math.Pow((float64(array[i]) - average), 2)
+	varianceSum := 0.0
+	for _, num := range array {
+		varianceSum += math.Pow((float64(num) - average), 2)
 	}
-	variance := math.Round(standardDeviation / float64(len(array)))
+	variance := math.Round(varianceSum / float64(len(array)))
 	fmt.Println(int(variance))
 
 	fmt.Print("Standard Deviation: ")
-	standardDeviation = math.Round(math.Sqrt(standardDeviation / float64(len(array))))
+	standardDeviation := math.Round(math.Sqrt(variance))
 	fmt.Println(standardDeviation)
 }
 
